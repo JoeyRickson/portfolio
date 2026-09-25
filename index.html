@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joey Rickson | Infrastructure & Software Engineer</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfólio profissional de Joey Rickson Guimarães Oliveira. Especialista em Infraestrutura, Redes, Cloud, Banco de Dados e ERP Protheus.">
+    <meta name="keywords" content="Joey Oliveira, Infraestrutura, Cloud, DevOps, FortiGate, Google Cloud, GLPI, Node.js, React Native, PWA, SaldoPlan, Dose Certa, TOTVS Protheus">
+    
+    <!-- TailwindCSS Versão Estável -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Arquivo de estilos externo -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .zoomable-img {
+            cursor: zoom-in;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .zoomable-img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+        #imageModal {
+            transition: opacity 0.25s ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen selection:bg-white selection:text-black antialiased bg-[#030303] text-white">
+
+    <div class="controls-panel fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-wrap items-center justify-center gap-3 px-3 py-2 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
+        <div class="flex items-center gap-2 rounded-full bg-black/10 px-2 py-1">
+            <span class="text-[10px] font-mono-tech uppercase tracking-[0.3em] opacity-70" data-i18n="controls.theme">Tema</span>
+            <button id="themeToggle" type="button" class="control-btn flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold transition-all duration-200" aria-label="Alternar tema">
+                <span class="text-[11px]">🌙</span>
+                <span>Branco</span>
+            </button>
+        </div>
+        <div class="flex items-center gap-2 rounded-full bg-black/10 px-2 py-1">
+            <span class="text-[10px] font-mono-tech uppercase tracking-[0.3em] opacity-70" data-i18n="controls.language">Idioma</span>
+            <div class="flex gap-1">
+                <button type="button" class="lang-btn control-btn rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold" data-lang="pt">PT</button>
+                <button type="button" class="lang-btn control-btn rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold" data-lang="es">ES</button>
+                <button type="button" class="lang-btn control-btn rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold" data-lang="en">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <header class="nav-wrapper fixed top-20 left-1/2 -translate-x-1/2 z-40 w-[min(92vw,960px)]">
+        <nav class="nav-shell rounded-full border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] px-3 py-2.5 flex items-center justify-between">
+            <a href="#top" class="text-sm font-semibold tracking-[0.25em] uppercase text-white/80 hover:text-white transition-colors duration-200" data-i18n="nav.brand">Joey</a>
+            <button id="menuToggle" type="button" class="md:hidden flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm transition-all duration-200" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+                ☰
+            </button>
+            <div id="navLinks" class="nav-links hidden md:flex items-center gap-1">
+                <a href="#about" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.about">Sobre</a>
+                <a href="#specialties" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.specialties">Especialidades</a>
+                <a href="#projects" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.projects">Projetos</a>
+                <a href="#experience" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.experience">Experiência</a>
+                <a href="#contact" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.contact">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Fundo Interativo -->
+    <canvas id="particleCanvas" class="fixed inset-0 -z-10 pointer-events-none opacity-35"></canvas>
+    <div class="absolute top-0 inset-x-0 h-[1000px] radial-glow pointer-events-none -z-20"></div>
+
+    <!-- HERO SECTION -->
+    <section id="top" class="relative min-h-screen flex flex-col justify-center items-center px-6 lg:px-24 pt-32 md:pt-36 lg:pt-40 border-b border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-7xl w-full z-10">
+            
+            <div class="lg:col-span-7 flex flex-col space-y-6 text-center lg:text-left">
+                <span class="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/40 font-semibold font-mono-tech" data-i18n="hero.badge">
+                    Infrastructure • Development • ERP • Cloud • Data
+                </span>
+                
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-none">
+                    Joey Rickson <br />
+                    <span class="text-white/50 font-light">Guimarães Oliveira</span>
+                </h1>
+
+                <div class="h-14 flex justify-center lg:justify-start items-center">
+                    <p id="changingTitle" class="text-lg md:text-xl font-mono-tech text-white tracking-wide bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-fade opacity-100 transform translate-y-0">
+                        Infrastructure Engineer
+                    </p>
+                </div>
+
+                <p class="text-sm md:text-base text-white/60 max-w-xl leading-relaxed font-light" data-i18n="hero.description">
+                    Profissional de Tecnologia da Informação com sólida experiência em suporte técnico, infraestrutura e administração de ambientes corporativos, atuando de forma estratégica em cenários híbridos e remotos.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <a href="#projects" class="px-8 py-3.5 bg-white text-black font-semibold text-sm rounded-lg hover:bg-white/90 transition-all duration-300 text-center shadow-lg shadow-white/5" data-i18n="hero.projectsButton">
+                        Ver Projetos
+                    </a>
+                    <a href="assets/docs/CV_Joey_Oliveira.pdf" download class="px-8 py-3.5 bg-transparent border border-white/10 text-white text-sm font-medium rounded-lg hover:bg-white/5 hover:border-white/20 transition-all duration-300 text-center" data-i18n="hero.cvButton">
+                        Download CV
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 flex justify-center relative">
+                <div class="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,255,255,0.06)] group border border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent z-10 opacity-70"></div>
+                    <img src="assets/images/WhatsApp Image 2026-06-29 at 21.38.47.jpeg" alt="Joey Rickson" class="w-full h-full object-cover object-center filter contrast-115 brightness-105 saturate-95 select-none transition-transform duration-700 group-hover:scale-102">
+                </div>
+                <div class="absolute -inset-2 border border-white/5 rounded-3xl pointer-events-none -z-10"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SOBRE MIM & TIMELINE -->
+    <section id="about" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-6 flex flex-col space-y-6 text-left">
+                <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="about.badge">O Perfil</span>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white" data-i18n="about.title">Sobre Mim</h2>
+                
+                <p class="text-white/75 font-light leading-relaxed text-sm md:text-base text-justify" data-i18n="about.p1">
+                    Sou um profissional de Tecnologia da Informação focado em suporte técnico, infraestrutura e administração de ambientes corporativos, com ampla facilidade de atuação em cenários operacionais híbridos e remotos. Possuo sólida vivência prática com tecnologias essenciais de mercado, incluindo Active Directory, GLPI, SQL Server, redes estruturadas LAN/WAN, soluções de BI como Qlik Sense, Microsoft 365, conexões VPNs, firewalls pfSense, o ecossistema ERP TOTVS Protheus e rotinas de segurança com Veeam Backup.
+                </p>
+                <p class="text-white/60 font-light leading-relaxed text-sm md:text-base text-justify" data-i18n="about.p2">
+                    Atuo com um perfil marcadamente analítico e colaborativo, destacando-me pela forte capacidade de resolução rápida de problemas complexos e ágil adaptação a novos sistemas e metodologias, mantendo sempre o foco principal na estabilidade operational e na melhoria contínua de processes internos.
+                </p>
+                <p class="text-white/50 font-light leading-relaxed text-xs md:text-sm text-justify" data-i18n="about.p3">
+                    Adicionalmente, possuo conhecimentos fundamentais em desenvolvimento web e mobile aplicados de maneira prática em projetos acadêmicos, participando ativamente de iniciativas de otimização, uso de metodologias ágeis e suporte à evolução de soluções e fluxos internos de tecnologia.
+                </p>
+            </div>
+
+            <div class="lg:col-span-6 flex flex-col justify-center pt-12 lg:pt-14">
+                <div class="relative border-l border-white/10 pl-6 ml-2 space-y-10">
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
+                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.0.title">Técnico de Informática</h3>
+                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.0.text">Manutenção corretiva, redes locais estruturadas e suporte básico de hardware.</p>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
+                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.1.title">Analista de Suporte</h3>
+                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.1.text">Atendimento técnico N2, gestão de chamados via plataformas GLPI/ServiceNow e acompanhamento de acordos de SLA.</p>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
+                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.2.title">Analista de Infraestrutura</h3>
+                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.2.text">Gerenciamento de servidores, privilégios via Active Directory, administração de firewalls e links LAN/WAN.</p>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
+                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.3.title">Analista ERP Protheus</h3>
+                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.3.text">Análise de inconsistências sistêmicas, liberações no módulo SIGACFG, extração e tuning de dados via SQL Server.</p>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white rounded-full"></div>
+                        <h3 class="text-base font-semibold text-white" data-i18n="about.timeline.4.title">Infrastructure & Software Engineer</h3>
+                        <p class="text-xs text-white/50 font-light mt-1 max-w-xl" data-i18n="about.timeline.4.text">Orquestração completa unindo código limpo (Python), ambientes em nuvem estáveis e melhoria operacional de ponta a ponta.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ESPECIALIDADES -->
+    <section id="specialties" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="specialties.badge">Expertise Core</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="specialties.title">Especialidades</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.0.title">Infraestrutura</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.0.text">Gestão e arquitetura de ativos de servidores, Active Directory, políticas de segurança, rotinas de Veeam Backup e ambientes corporativos híbridos.</p>
+            </div>
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.1.title">Desenvolvimento</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.1.text">Criação de scripts robustos em Python, soluções integradas ao GLPI, metodologias ágeis e fundamentos web/mobile acadêmicos.</p>
+            </div>
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.2.title">Cloud & Servidores</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.2.text">Gerenciamento de máquinas virtuais Linux, provisionamento em Google Cloud Platform (GCP), Microsoft 365 e TOTVS Cloud.</p>
+            </div>
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.3.title">Banco de Dados & BI</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.3.text">Extração e modelagem de dados complexos com SQL Server e PostgreSQL estruturados para dashboards e relatórios de BI (Qlik Sense).</p>
+            </div>
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.4.title">ERP Protheus</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.4.text">Sustentação aprofundada de módulos de Backoffice, controle de privilégios e parametrizações complexas globais via SIGACFG.</p>
+            </div>
+            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+                <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.5.title">Redes & Segurança</h3>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.5.text">Segurança de borda perimetral configurada via firewalls FortiGate e pfSense, túneis VPN estáveis e gerência de redes LAN/WAN.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFÓLIO DE PROJETOS PROFISSIONAIS, PESSOAIS & ACADÊMICOS -->
+    <section id="projects" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="projects.badge">Inovação Prática</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="projects.title">Projetos em Destaque</h2>
+            <p class="text-xs text-white/50 font-light" data-i18n="projects.description">Produtos pessoais, automações e soluções de infraestrutura desenvolvidos para resolver problemas reais, além de projetos acadêmicos selecionados.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- PROJETO 5: SALDOPLAN -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between space-y-6 hover:border-white/20 transition-all duration-300 relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-white/[0.03] blur-2xl pointer-events-none"></div>
+                <div class="space-y-4 relative">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-2.5 py-1 bg-white/10 border border-white/15 text-[10px] font-mono-tech tracking-wider text-white/80 rounded" data-i18n="projects.card5.tag">PWA & FINTECH PESSOAL</span>
+                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card5.date">Setembro/2026</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-mono-tech uppercase tracking-[0.2em] text-white/35">Projeto pessoal em destaque</span>
+                        <h3 class="text-2xl font-bold text-white tracking-tight mt-1" data-i18n="projects.card5.title">SaldoPlan — Controle Financeiro & Simulação de Folha</h3>
+                    </div>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card5.text">
+                        PWA criada para centralizar salário, gastos, reservas e planejamento mensal em uma única experiência. O sistema trabalha com ciclos financeiros, lançamentos, valores guardados e uma simulação de folha com horas extras, adicional noturno, DSR e descontos. Também oferece funcionamento offline, exportação/importação de dados e backup opcional em nuvem, transformando uma necessidade pessoal em um produto utilizável no dia a dia.
+                    </p>
+                </div>
+                <div class="space-y-4 relative">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">PWA</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">JavaScript</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Service Worker</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Offline First</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Google Drive OAuth</span>
+                    </div>
+                    <a href="https://github.com/JoeyRickson/PWA_CAIXA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white transition-colors">
+                        Ver projeto no GitHub <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- PROJETO 6: DOSE CERTA -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between space-y-6 hover:border-white/20 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-2.5 py-1 bg-white/10 border border-white/15 text-[10px] font-mono-tech tracking-wider text-white/80 rounded" data-i18n="projects.card6.tag">MOBILE & PRODUTO PESSOAL</span>
+                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card6.date">Setembro/2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card6.title">Dose Certa — Controle de Medicamentos</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card6.text">
+                        Aplicativo mobile desenvolvido em React Native com Expo para organizar o uso diário de medicamentos. Possui histórico e calendário, horário configurável, observações, persistência local com SQLite, temas, notificações e lembretes com suporte a alarme no Android. O projeto também passou por ciclo real de build e distribuição via EAS.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">React Native</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Expo</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">SQLite</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">EAS Build</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Android Notifications</span>
+                </div>
+            </div>
+
+            <!-- PROJETO 7: GCP FILE SERVER -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card7.tag">CLOUD, VPN & INFRAESTRUTURA</span>
+                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card7.date">Ago–Set/2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card7.title">File Server em GCP + VPN Site-to-Site</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card7.text">
+                        Implantação de um File Server Windows em Google Cloud para uso interno, integrado à rede local por túnel VPN site-to-site com FortiGate. O projeto envolveu VPC, roteamento, segmentação por VLAN, acesso SMB, estrutura de compartilhamentos setoriais, scripts de mapeamento e validações de conectividade entre a fábrica e a nuvem. Informações sensíveis de rede foram omitidas por segurança.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Google Cloud</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Windows Server</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">FortiGate</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">IPsec VPN</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">SMB</span>
+                </div>
+            </div>
+
+            <!-- PROJETO 8: CHECKLIST PREVENTIVA -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card8.tag">AUTOMAÇÃO & APLICAÇÃO INTERNA</span>
+                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card8.date">Setembro/2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card8.title">Checklist Preventiva — Aplicação Interna</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card8.text">
+                        Evolução e publicação de uma aplicação interna para execução e registro de checklists de manutenção preventiva. Foram trabalhados autenticação, API REST, controle de versão, assinatura em PDF, identidade visual, inatividade de sessão e operação como serviço via tarefas agendadas, além de procedimentos de backup, atualização e rollback.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Node.js</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Express</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">REST API</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Windows Server</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">PDF</span>
+                </div>
+            </div>
+
+            <!-- PROJETO 9: GLPI PLUGIN -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card9.tag">ITSM & CUSTOMIZAÇÃO</span>
+                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card9.date">Setembro/2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card9.title">Plugin GLPI — Contexto do Solicitante</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card9.text">
+                        Desenvolvimento de plugin próprio para GLPI 10, adicionando ao atendimento um painel contextual com informações úteis do solicitante, como localização, grupo e cargo. A customização melhora a triagem dos chamados e reduz consultas manuais durante o suporte sem alterar o núcleo da plataforma.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">GLPI 10</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">PHP</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">MariaDB</span>
+                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">ITSM</span>
+                </div>
+            </div>
+
+            <!-- PROJETO 1: SAMAUMA (Sem imagem) -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card1.tag">BIG DATA & INTEGRAÇÃO</span>
+                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card1.date">Maio/2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card1.title">SAMAUMA — Inteligência de Crédito Comercial</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card1.text">
+                        Apresentado na Mostra de Projetos Estácio Amazonas, o SAMAUMA é uma plataforma inovadora voltada para a cadeia de suprimentos da região Norte. Ele resolve a assimetria de crédito ao integrar motores de regras Big Data tradicionais com variáveis não-estruturadas locais exclusivas (como o nível de seca severa de rios e gargalos de logística fluvial). O diferencial está no isolamento de risco: distinguir se um atraso do fornecedor é calote financeiro ou impacto sazonal geográfico, promovendo inclusão financeira justa.
+                    </p>
+                    <div class="pt-2">
+                        <h4 class="text-[11px] font-mono-tech text-white/40 uppercase tracking-wider mb-1">Equipe de Desenvolvimento:</h4>
+                        <p class="text-[11px] text-white/50 font-light">
+                            <strong>PoC Original:</strong> Naomy Souza, Carolina Maranhão, David Vieira, Isaias Leite, João Victor <br/>
+                            <strong>Mobile App UI:</strong> Joey Rickson & Marcos Ramos | <strong>Orientação:</strong> Prof. Fábio Brasil & Coord. Gilmara Maquiné
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Big Data Engine</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Rules Motor</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Mobile UI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJETO 2: CLIENTE SEGURO -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card2.tag">MOBILE & CORPORATIVO</span>
+                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card2.date">Novembro/2024</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <img src="assets/images/LOGO_CLIENTE_SEGURO.png" alt="Logo Cliente Seguro" class="h-6 object-contain zoomable-img" onclick="openZoom(this.src)">
+                        <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card2.title">Cliente Seguro</h3>
+                    </div>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card2.text">
+                        Desenvolvida para a empresa parceira <strong>Hise Plast</strong> na disciplina de Programação para Dispositivos Móveis (orientada pelo prof. Paulo Seixas), a aplicação otimiza a gestão de crédito corporativo e o controle de riscos. Permite a consulta rápida via CNPJ, extração e análise automatizada de pagamentos de boletos, histórico de protestos e cálculo direto do risco de inadimplência, operando em total conformidade técnica com a LGPD.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="assets/images/FORMULARIO_CNPJ.png" alt="Formulário de Consulta - Cliente Seguro" class="w-full h-32 object-cover rounded-xl border border-white/10 zoomable-img" onclick="openZoom(this.src)">
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">React Native</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Web Platform</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">LGPD Compliance</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJETO 3: EAAM -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card3.tag">DESKTOP SOFTWARE (POO)</span>
+                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card3.date">Fev/2024 - Mai/2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card3.title">EAAM — Escola Abastece Amazonas</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card3.text">
+                        Sistema desktop de alta robustez desenvolvido sob a ótica da Programação Orientada a Objetos em Java, sob a orientação da profª. Isandra Augusta. A solução foi projetada de ponta a ponta para resolver gargalos reais de gestão de estoque em instituições públicas locais, otimizando o fluxo de cadastro, entrada, saída e controle de insumos alimentícios destinados a refeições escolares de forma limpa, auditável e segura.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <img src="assets/images/PAINEL_CONTRO_E_RELATORIO.png" alt="Painel do EAAM Java Desktop" class="w-full h-40 object-cover rounded-xl border border-white/10 filter brightness-95 zoomable-img" onclick="openZoom(this.src)">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Java SE</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">POO Avançado</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Estoque Local</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJETO 4: KIT PLANTINHA IOT -->
+            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card4.tag">EXTENSÃO & EMBARCADOS</span>
+                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card4.date">Projeto de Extensão</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card4.title">Kit Plantinha IoT — Monitoramento Residencial</h3>
+                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card4.text">
+                        Iniciativa extensionista focada em aproximar competências complexas de engenharia eletrônica à resolução de demandas da comunidade local de Manaus. Desenhado especificamente para mitigar a barreira de familiaridade digital da cliente (Sra. Raimunda da Silva), a arquitetura combinou microcontroladores de baixo custo e telemetria de sensores.
+                    </p>
+                    <div class="pt-2">
+                        <h4 class="text-[11px] font-mono-tech text-white/40 uppercase tracking-wider mb-1">Membros do Projeto:</h4>
+                        <p class="text-[11px] text-white/50 font-light">
+                            Anderson Vieira, Caio de Souza, Joey Rickson Oliveira, Luiz Dae Lee e Timóteo Bentes.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <img src="assets/images/KIT_IOT_PLANTINHA.png" alt="Apresentação da Equipe - Kit Plantinha IoT" class="w-full h-40 object-cover rounded-xl border border-white/10 zoomable-img" onclick="openZoom(this.src)">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">IoT Hardware</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Sistemas Embarcados</span>
+                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Cloud Computing</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EXPERIÊNCIA E PARCERIAS ESTRATÉGICAS -->
+    <section id="experience" class="py-24 px-6 lg:px-24 max-w-5xl mx-auto border-b border-white/5">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="experience.badge">Histórico</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="experience.title">Experiência & Alianças</h2>
+        </div>
+
+        <div class="space-y-10">
+            <!-- PARCERIA DESTAQUE: AMADEV -->
+            <div class="p-8 rounded-2xl relative overflow-hidden bg-gradient-to-r from-white/[0.03] to-transparent border border-white/10 shadow-2xl">
+                <div class="absolute top-0 right-0 px-3 py-1 bg-white/10 text-[9px] font-mono-tech text-white/80 rounded-bl tracking-widest uppercase" data-i18n="experience.partnerBadge">Parceria Estratégica</div>
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-white/5 pb-4 mb-4 gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-white tracking-tight">
+                            Amadev <span class="text-xs font-light text-white/40">| Software House</span>
+                        </h3>
+                        <p class="text-xs text-white/60 mt-0.5" data-i18n="experience.amadev.role">Engenharia de Infraestrutura, Servidores & Banco de Dados Core</p>
+                    </div>
+                    <!-- Imagem Logo Amadev -->
+                    <img src="assets/images/amadev.jpg" alt="Logo Amadev" class="h-10 object-contain rounded border border-white/10 zoomable-img" onclick="openZoom(this.src)">
+                </div>
+                
+                <p class="text-xs text-white/70 font-light leading-relaxed mb-4 text-justify" data-i18n="experience.amadev.text">
+                    A <strong>Amadev</strong> (empresa parceira capitaneada por Timóteo Bentes) é uma software house focada em criar soluções digitais inovadoras, unindo tecnologia, design e estratégia. Desenvolvemos produtos modernos, funcionais e centrados no usuário, sempre com compromisso, qualidade e proximidade com o cliente. Nossa missão é transformar ideias em experiências digitais inteligentes, escaláveis e de alto impacto. Vem com a gente trilhar essa jornada 🚀
+                </p>
+                
+                <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+                    <h4 class="text-[10px] font-mono-tech text-white/40 uppercase tracking-wider mb-2" data-i18n="experience.amadev.sectionTitle">Atuação & Espírito de Equipe:</h4>
+                    <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="experience.amadev.sectionText">
+                        Somando forças através de um sólido espírito de colaboração onde cada especialista potencializa o que faz de melhor. Focado na espinha dorsal técnica, meu papel foca em blindar e otimizar o ecossistema com <strong>gestão de servidores e administração de banco de dados robustos</strong>, garantindo alta performance, estabilidade e crescimento conjunto para que toda ideia seja impulsionada sem gargalos operacionais.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Instituto Kodigos -->
+            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start border-b border-white/5 pb-4 mb-4 gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-white tracking-tight">Instituto Kodigos de Tecnologia</h3>
+                        <p class="text-xs text-white/60 mt-0.5" data-i18n="experience.kodigos.role">Analista de TI (Abr/2026 - Atual)</p>
+                    </div>
+                </div>
+                <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item1">Sustentação e suporte ao ERP TOTVS Protheus (Backoffice).</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item2">Administração de infraestrutura, redes, firewall FortiGate, instâncias GCP e TOTVS Cloud.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item3">Desenvolvimento de automações inteligentes utilizando Python integradas ao ecossistema GLPI.</span></li>
+                </ul>
+            </div>
+
+            <!-- TAM Service -->
+            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start border-b border-white/5 pb-4 mb-4 gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-white tracking-tight">TAM Service (TOTVS)</h3>
+                        <p class="text-xs text-white/60 mt-0.5" data-i18n="experience.tam.role">Analista de TI — Alocado na Bajaj do Brasil (Fev/2026 - Abr/2026)</p>
+                    </div>
+                </div>
+                <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item1">Atuação em canal homologado TOTVS focado em suporte sistêmico e infraestrutura.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item2">Administração de segurança perimetral via firewall FortiGate e gerenciamento de ativos de rede.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item3">Controle de inventário, ativos lógicos de TI e interface técnica com fornecedores globais.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CONTATO -->
+    <section id="contact" class="py-24 px-6 lg:px-24 max-w-6xl mx-auto border-b border-white/5">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="contact.badge">Conexões</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="contact.title">Entrar em Contato</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="https://wa.me/5592984594999" target="_blank" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
+                    <span class="font-mono-tech text-sm">WA</span>
+                </div>
+                <div>
+                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.whatsapp">WhatsApp</h3>
+                    <p class="text-sm font-medium text-white/80 mt-0.5">+55 (92) 98459-4999</p>
+                </div>
+            </a>
+
+            <a href="mailto:joeyoliveira8@gmail.com" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
+                    <span class="font-mono-tech text-sm">@</span>
+                </div>
+                <div>
+                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.email">E-mail</h3>
+                    <p class="text-sm font-medium text-white/80 mt-0.5 truncate max-w-[180px]">joeyoliveira8@gmail.com</p>
+                </div>
+            </a>
+
+            <a href="https://linkedin.com/in/joeyrickgoliveira" target="_blank" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
+                    <span class="font-mono-tech text-sm">LN</span>
+                </div>
+                <div>
+                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.linkedin">LinkedIn</h3>
+                    <p class="text-sm font-medium text-white/80 mt-0.5">joeyrickgoliveira</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- MODAL DE ZOOM PARA AS IMAGENS -->
+    <div id="imageModal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center opacity-0 pointer-events-none" onclick="closeZoom()">
+        <button class="absolute top-6 right-6 text-white/60 hover:text-white text-sm font-mono-tech bg-white/5 border border-white/10 px-4 py-2 rounded-lg">FECHAR ×</button>
+        <img id="modalTargetImg" src="" alt="Zoomed View" class="max-w-[90vw] max-h-[85vh] object-contain rounded-lg border border-white/10 shadow-2xl transition-transform duration-300 scale-95">
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-6 text-center border-t border-white/5 flex flex-col space-y-2">
+        <p class="text-[10px] text-white/30 font-mono-tech tracking-wider" data-i18n="footer.text">DESIGNED & DEVELOPED BY JOEY OLIVEIRA</p>
+    </footer>
+
+    <!-- Scripts de Controle -->
+    <script>
+        function openZoom(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalTargetImg');
+            
+            modalImg.src = imageSrc;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            
+            setTimeout(() => {
+                modalImg.classList.remove('scale-95');
+                modalImg.classList.add('scale-100');
+            }, 50);
+        }
+
+        function closeZoom() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalTargetImg');
+            
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+            
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeZoom();
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
