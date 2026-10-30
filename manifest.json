@@ -1,0 +1,23 @@
+{
+  "name": "Joey Rickson | Portfolio",
+  "short_name": "Joey Rickson",
+  "description": "Portfólio profissional de Joey Rickson Guimarães Oliveira - Infraestrutura, Cloud, DevOps e ERP Protheus",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/images/amadev.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/amadev.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

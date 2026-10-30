@@ -3,17 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Joey Rickson | Infrastructure & Software Engineer</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Portfólio profissional de Joey Rickson Guimarães Oliveira. Especialista em Infraestrutura, Redes, Cloud, Banco de Dados e ERP Protheus.">
     <meta name="keywords" content="Joey Oliveira, Infraestrutura, Cloud, DevOps, FortiGate, Google Cloud, GLPI, Node.js, React Native, PWA, SaldoPlan, Dose Certa, TOTVS Protheus">
+
+    <!-- Open Graph / Social SEO -->
+    <meta property="og:title" content="Joey Rickson | Infrastructure & Software Engineer">
+    <meta property="og:description" content="Portfólio profissional de Joey Rickson Guimarães Oliveira. Especialista em Infraestrutura, Redes, Cloud, Banco de Dados e ERP Protheus.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://joeyrickson.com.br">
+    <meta property="og:image" content="assets/images/amadev.jpg">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Joey Rickson | Infrastructure & Software Engineer">
+    <meta name="twitter:description" content="Portfólio profissional de Joey Rickson Guimarães Oliveira.">
+    <meta name="twitter:image" content="assets/images/amadev.jpg">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
     
-    <!-- TailwindCSS Versão Estável -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Joey Rickson Guimarães Oliveira",
+        "alternateName": "Joey Rickson",
+        "jobTitle": "Infrastructure & Software Engineer",
+        "description": "Profissional de Tecnologia da Informação especialista em infraestrutura, redes, cloud, banco de dados e ERP Protheus.",
+        "url": "https://joeyrickson.com.br",
+        "image": "https://joeyrickson.com.br/assets/images/amadev.jpg",
+        "email": "joeyoliveira8@gmail.com",
+        "telephone": "+5592984594999",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Manaus",
+            "addressRegion": "Amazonas",
+            "addressCountry": "BR"
+        },
+        "knowsAbout": [
+            "Infraestrutura", "Cloud Computing", "DevOps", "FortiGate", "pfSense",
+            "SQL Server", "PostgreSQL", "TOTVS Protheus", "GLPI", "Zabbix", "Grafana",
+            "Python", "Node.js", "React Native", "PWA", "Google Cloud", "Linux", "Windows Server"
+        ],
+        "sameAs": [
+            "https://linkedin.com/in/joeyrickgoliveira",
+            "https://github.com/JoeyRickson",
+            "https://wa.me/5592984594999"
+        ]
+    }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Arquivo de estilos externo -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -30,10 +79,92 @@
         #imageModal {
             transition: opacity 0.25s ease-in-out;
         }
+        /* Scroll to Top */
+        #scrollToTop {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        #scrollToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #scrollToTop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(14, 165, 233, 0.6);
+        }
+        body.theme-light #scrollToTop {
+            background: var(--accent);
+            color: #000;
+        }
+        /* Acessibilidade - foco visível */
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        /* Skip to content */
+        #skip-to-content {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--accent);
+            color: #000;
+            padding: 0.5rem 1rem;
+            z-index: 10000;
+            transition: top 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        #skip-to-content:focus {
+            top: 0;
+        }
     </style>
 </head>
-<body class="relative min-h-screen selection:bg-white selection:text-black antialiased bg-[#030303] text-white">
+<body class="relative min-h-screen selection:bg-white selection:text-black antialiased bg-[#030303] text-white overflow-x-hidden">
 
+    <script>
+        // Desregistrar qualquer service worker ativo para limpar cache antigo
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+    </script>
+
+    <!-- Skip to Content -->
+    <a href="#top" id="skip-to-content">Pular para o conteúdo</a>
+
+    <!-- Scroll to Top -->
+    <button id="scrollToTop" aria-label="Voltar ao topo">↑</button>
+
+    <!-- Fundo interativo -->
+    <canvas id="particleCanvas" class="fixed inset-0 -z-10 pointer-events-none opacity-35"></canvas>
+    <div class="mesh-gradient"></div>
+    <div class="radial-glow"></div>
+
+    <!-- Controles topo -->
     <div class="controls-panel fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-wrap items-center justify-center gap-3 px-3 py-2 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
         <div class="flex items-center gap-2 rounded-full bg-black/10 px-2 py-1">
             <span class="text-[10px] font-mono-tech uppercase tracking-[0.3em] opacity-70" data-i18n="controls.theme">Tema</span>
@@ -52,15 +183,20 @@
         </div>
     </div>
 
+    <!-- Header / Navegação -->
     <header class="nav-wrapper fixed top-20 left-1/2 -translate-x-1/2 z-40 w-[min(92vw,960px)]">
-        <nav class="nav-shell rounded-full border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] px-3 py-2.5 flex items-center justify-between">
-            <a href="#top" class="text-sm font-semibold tracking-[0.25em] uppercase text-white/80 hover:text-white transition-colors duration-200" data-i18n="nav.brand">Joey</a>
+        <nav class="nav-shell rounded-full border border-white/10 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] px-4 py-3 flex items-center justify-between">
+            <a href="#top" class="text-sm font-bold tracking-[0.25em] uppercase text-white/90 hover:text-white transition-colors duration-200 group relative" data-i18n="nav.brand">
+                Joey Rickson
+                <span class="absolute -top-2 -right-2 w-1.5 h-1.5 bg-[var(--accent)] rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            </a>
             <button id="menuToggle" type="button" class="md:hidden flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm transition-all duration-200" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
                 ☰
             </button>
             <div id="navLinks" class="nav-links hidden md:flex items-center gap-1">
                 <a href="#about" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.about">Sobre</a>
                 <a href="#specialties" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.specialties">Especialidades</a>
+                <a href="#stack" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200">Stack</a>
                 <a href="#projects" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.projects">Projetos</a>
                 <a href="#experience" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.experience">Experiência</a>
                 <a href="#contact" class="nav-link rounded-full px-3 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200" data-i18n="nav.contact">Contato</a>
@@ -68,35 +204,32 @@
         </nav>
     </header>
 
-    <!-- Fundo Interativo -->
-    <canvas id="particleCanvas" class="fixed inset-0 -z-10 pointer-events-none opacity-35"></canvas>
-    <div class="absolute top-0 inset-x-0 h-[1000px] radial-glow pointer-events-none -z-20"></div>
-
     <!-- HERO SECTION -->
-    <section id="top" class="relative min-h-screen flex flex-col justify-center items-center px-6 lg:px-24 pt-32 md:pt-36 lg:pt-40 border-b border-white/5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-7xl w-full z-10">
+    <section id="top" class="relative min-h-[90vh] flex flex-col justify-center items-center px-6 lg:px-24 pt-20 z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-7xl w-full">
             
-            <div class="lg:col-span-7 flex flex-col space-y-6 text-center lg:text-left">
-                <span class="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/40 font-semibold font-mono-tech" data-i18n="hero.badge">
-                    Infrastructure • Development • ERP • Cloud • Data
-                </span>
+            <div class="lg:col-span-6 flex flex-col space-y-6 text-center lg:text-left reveal reveal-delay-1">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-[var(--accent)] rounded-full animate-pulse"></div>
+                    <span class="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/40 font-semibold font-mono-tech" data-i18n="hero.badge">
+                        Infrastructure • Development • ERP • Cloud • Data
+                    </span>
+                </div>
                 
-                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-none">
+                <h1 class="hero-title">
                     Joey Rickson <br />
                     <span class="text-white/50 font-light">Guimarães Oliveira</span>
                 </h1>
 
-                <div class="h-14 flex justify-center lg:justify-start items-center">
-                    <p id="changingTitle" class="text-lg md:text-xl font-mono-tech text-white tracking-wide bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-fade opacity-100 transform translate-y-0">
-                        Infrastructure Engineer
-                    </p>
+                <div class="hero-subtitle font-mono-tech text-white tracking-wide bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-fade opacity-100 transform translate-y-0" id="changingTitle">
+                    Infrastructure Engineer
                 </div>
 
-                <p class="text-sm md:text-base text-white/60 max-w-xl leading-relaxed font-light" data-i18n="hero.description">
+                <p class="text-sm md:text-base text-white/60 max-w-xl leading-relaxed font-light mt-4" data-i18n="hero.description">
                     Profissional de Tecnologia da Informação com sólida experiência em suporte técnico, infraestrutura e administração de ambientes corporativos, atuando de forma estratégica em cenários híbridos e remotos.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
                     <a href="#projects" class="px-8 py-3.5 bg-white text-black font-semibold text-sm rounded-lg hover:bg-white/90 transition-all duration-300 text-center shadow-lg shadow-white/5" data-i18n="hero.projectsButton">
                         Ver Projetos
                     </a>
@@ -106,402 +239,380 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-5 flex justify-center relative">
-                <div class="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(255,255,255,0.06)] group border border-white/10">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent z-10 opacity-70"></div>
-                    <img src="assets/images/WhatsApp Image 2026-06-29 at 21.38.47.jpeg" alt="Joey Rickson" class="w-full h-full object-cover object-center filter contrast-115 brightness-105 saturate-95 select-none transition-transform duration-700 group-hover:scale-102">
+            <div class="lg:col-span-6 flex justify-center relative reveal reveal-delay-2">
+                <div class="hero-image-wrapper relative w-64 h-64 md:w-[420px] md:h-[420px] group">
+                    <div class="hero-border-glow"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent z-10 opacity-80"></div>
+                    <img src="assets/images/WhatsApp Image 2026-06-29 at 21.38.47.jpeg" alt="Joey Rickson" class="w-full h-full object-cover object-center filter contrast-115 brightness-105 saturate-95 select-none transition-transform duration-1000 group-hover:scale-105">
                 </div>
-                <div class="absolute -inset-2 border border-white/5 rounded-3xl pointer-events-none -z-10"></div>
             </div>
 
         </div>
     </section>
 
-    <!-- SOBRE MIM & TIMELINE -->
+    <!-- ESTATÍSTICAS -->
+    <section id="stats" class="py-16 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
+        <div class="stats-grid reveal">
+            <div class="stat-card">
+                <div class="stat-number" data-i18n="stats.years">5+</div>
+                <div class="stat-label" data-i18n="stats.yearsLabel">Anos de TI</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-i18n="stats.projects">11+</div>
+                <div class="stat-label" data-i18n="stats.projectsLabel">Projetos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-i18n="stats.cert">3</div>
+                <div class="stat-label" data-i18n="stats.certLabel">Idiomas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-i18n="stats.cloud">GCP</div>
+                <div class="stat-label" data-i18n="stats.cloudLabel">Cloud Partner</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE MIM -->
     <section id="about" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            
-            <div class="lg:col-span-6 flex flex-col space-y-6 text-left">
-                <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="about.badge">O Perfil</span>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white" data-i18n="about.title">Sobre Mim</h2>
-                
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span><span data-i18n="about.badge">O Perfil</span></span>
+            <h2 class="section-title" data-i18n="about.title">Sobre Mim</h2>
+            <p class="section-desc" data-i18n="about.desc">
+                Profissional de TI focado em infraestrutura, cloud e ERP, com experiência em ambientes corporativos híbridos e desenvolvimento de soluções práticas.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div class="flex flex-col space-y-6 reveal reveal-delay-2">
                 <p class="text-white/75 font-light leading-relaxed text-sm md:text-base text-justify" data-i18n="about.p1">
-                    Sou um profissional de Tecnologia da Informação focado em suporte técnico, infraestrutura e administração de ambientes corporativos, com ampla facilidade de atuação em cenários operacionais híbridos e remotos. Possuo sólida vivência prática com tecnologias essenciais de mercado, incluindo Active Directory, GLPI, SQL Server, redes estruturadas LAN/WAN, soluções de BI como Qlik Sense, Microsoft 365, conexões VPNs, firewalls pfSense, o ecossistema ERP TOTVS Protheus e rotinas de segurança com Veeam Backup.
+                    Sou um profissional de Tecnologia da Informação focado em suporte técnico, infraestrutura e administração de ambientes corporativos, com ampla facilidade de atuação em cenários operacionais híbridos e remotos.
                 </p>
                 <p class="text-white/60 font-light leading-relaxed text-sm md:text-base text-justify" data-i18n="about.p2">
-                    Atuo com um perfil marcadamente analítico e colaborativo, destacando-me pela forte capacidade de resolução rápida de problemas complexos e ágil adaptação a novos sistemas e metodologias, mantendo sempre o foco principal na estabilidade operational e na melhoria contínua de processes internos.
+                    Atuo com um perfil marcadamente analítico e colaborativo, destacando-me pela forte capacidade de resolução rápida de problemas complexos.
                 </p>
                 <p class="text-white/50 font-light leading-relaxed text-xs md:text-sm text-justify" data-i18n="about.p3">
-                    Adicionalmente, possuo conhecimentos fundamentais em desenvolvimento web e mobile aplicados de maneira prática em projetos acadêmicos, participando ativamente de iniciativas de otimização, uso de metodologias ágeis e suporte à evolução de soluções e fluxos internos de tecnologia.
+                    Adicionalmente, possuo conhecimentos fundamentais em desenvolvimento web e mobile aplicados de maneira prática em projetos acadêmicos.
                 </p>
             </div>
 
-            <div class="lg:col-span-6 flex flex-col justify-center pt-12 lg:pt-14">
-                <div class="relative border-l border-white/10 pl-6 ml-2 space-y-10">
-                    <div class="relative group">
-                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
-                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.0.title">Técnico de Informática</h3>
-                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.0.text">Manutenção corretiva, redes locais estruturadas e suporte básico de hardware.</p>
+            <div class="flex flex-col justify-center pt-12 lg:pt-0 reveal reveal-delay-3">
+                <div class="relative border-l border-white/10 pl-8 ml-2 space-y-10">
+                    <div class="relative group timeline-item">
+                        <div class="timeline-node"></div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="about.timeline.0.title">Técnico de Informática</h3>
+                            <p data-i18n="about.timeline.0.text">Manutenção corretiva, redes locais e suporte básico de hardware.</p>
+                        </div>
                     </div>
-                    <div class="relative group">
-                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
-                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.1.title">Analista de Suporte</h3>
-                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.1.text">Atendimento técnico N2, gestão de chamados via plataformas GLPI/ServiceNow e acompanhamento de acordos de SLA.</p>
+                    <div class="relative group timeline-item">
+                        <div class="timeline-node completed"></div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="about.timeline.1.title">Analista de Suporte</h3>
+                            <p data-i18n="about.timeline.1.text">Atendimento N2, gestão de chamados via GLPI/ServiceNow e SLA.</p>
+                        </div>
                     </div>
-                    <div class="relative group">
-                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
-                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.2.title">Analista de Infraestrutura</h3>
-                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.2.text">Gerenciamento de servidores, privilégios via Active Directory, administração de firewalls e links LAN/WAN.</p>
+                    <div class="relative group timeline-item">
+                        <div class="timeline-node completed"></div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="about.timeline.2.title">Analista de Infraestrutura</h3>
+                            <p data-i18n="about.timeline.2.text">Servidores, Active Directory, firewalls e links LAN/WAN.</p>
+                        </div>
                     </div>
-                    <div class="relative group">
-                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white/30 rounded-full group-hover:border-white transition-colors duration-300"></div>
-                        <h3 class="text-base font-semibold text-white/90" data-i18n="about.timeline.3.title">Analista ERP Protheus</h3>
-                        <p class="text-xs text-white/40 font-light mt-1 max-w-xl" data-i18n="about.timeline.3.text">Análise de inconsistências sistêmicas, liberações no módulo SIGACFG, extração e tuning de dados via SQL Server.</p>
+                    <div class="relative group timeline-item">
+                        <div class="timeline-node completed"></div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="about.timeline.3.title">Analista ERP Protheus</h3>
+                            <p data-i18n="about.timeline.3.text">Sustentação de módulos Backoffice e tuning de dados SQL Server.</p>
+                        </div>
                     </div>
-                    <div class="relative group">
-                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-[#030303] border-2 border-white rounded-full"></div>
-                        <h3 class="text-base font-semibold text-white" data-i18n="about.timeline.4.title">Infrastructure & Software Engineer</h3>
-                        <p class="text-xs text-white/50 font-light mt-1 max-w-xl" data-i18n="about.timeline.4.text">Orquestração completa unindo código limpo (Python), ambientes em nuvem estáveis e melhoria operacional de ponta a ponta.</p>
+                    <div class="relative group timeline-item">
+                        <div class="timeline-node completed"></div>
+                        <div class="timeline-content">
+                            <h3 data-i18n="about.timeline.4.title">Infra & Software Engineer</h3>
+                            <p data-i18n="about.timeline.4.text">Código limpo, nuvem estável e melhoria operacional ponta a ponta.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
     <!-- ESPECIALIDADES -->
     <section id="specialties" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="specialties.badge">Expertise Core</span>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="specialties.title">Especialidades</h2>
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span><span data-i18n="specialties.badge">Expertise Core</span></span>
+            <h2 class="section-title" data-i18n="specialties.title">Especialidades</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.0.title">Infraestrutura</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.0.text">Gestão e arquitetura de ativos de servidores, Active Directory, políticas de segurança, rotinas de Veeam Backup e ambientes corporativos híbridos.</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.0.text">Gestão de ativos, Active Directory, Veeam Backup e ambientes híbridos.</p>
             </div>
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal reveal-delay-1">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.1.title">Desenvolvimento</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.1.text">Criação de scripts robustos em Python, soluções integradas ao GLPI, metodologias ágeis e fundamentos web/mobile acadêmicos.</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.1.text">Scripts Python, integrações GLPI e fundamentos web/mobile.</p>
             </div>
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal reveal-delay-2">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.2.title">Cloud & Servidores</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.2.text">Gerenciamento de máquinas virtuais Linux, provisionamento em Google Cloud Platform (GCP), Microsoft 365 e TOTVS Cloud.</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.2.text">VMs Linux, GCP, Microsoft 365 e TOTVS Cloud.</p>
             </div>
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal reveal-delay-3">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.3.title">Banco de Dados & BI</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.3.text">Extração e modelagem de dados complexos com SQL Server e PostgreSQL estruturados para dashboards e relatórios de BI (Qlik Sense).</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.3.text">SQL Server, PostgreSQL e dashboards Qlik Sense.</p>
             </div>
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal reveal-delay-4">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.4.title">ERP Protheus</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.4.text">Sustentação aprofundada de módulos de Backoffice, controle de privilégios e parametrizações complexas globais via SIGACFG.</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.4.text">Módulos Backoffice, privilégios e parametrizações SIGACFG.</p>
             </div>
-            <div class="glass-effect glass-glow p-6 rounded-xl flex flex-col space-y-2">
+            <div class="glass-effect p-6 rounded-xl flex flex-col space-y-2 hover:border-white/20 transition-all duration-300 reveal reveal-delay-5">
                 <h3 class="text-sm font-semibold text-white/90" data-i18n="specialties.5.title">Redes & Segurança</h3>
-                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.5.text">Segurança de borda perimetral configurada via firewalls FortiGate e pfSense, túneis VPN estáveis e gerência de redes LAN/WAN.</p>
+                <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="specialties.5.text">FortiGate, pfSense, VPNs e gerência LAN/WAN.</p>
             </div>
         </div>
     </section>
 
-    <!-- PORTFÓLIO DE PROJETOS PROFISSIONAIS, PESSOAIS & ACADÊMICOS -->
+    <!-- TECNOLOGIAS & EMPRESAS -->
+    <section id="stack" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5 bg-white/5">
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span>Tech Stack</span>
+            <h2 class="section-title">Tecnologias &amp; Empresas</h2>
+            <p class="section-desc">Ferramentas, plataformas e parceiras com as quais atuo diariamente.</p>
+        </div>
+
+        <div class="logo-grid reveal">
+            <div class="logo-item" data-tech="googlecloud" style="--c:#4285f4;"><div class="logo-fallback" style="display:none">G</div><img src="https://cdn.simpleicons.org/googlecloud" alt="Google Cloud" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="azure" style="--c:#0089d6;"><div class="logo-fallback" style="display:none">A</div><img src="assets/images/microsoft-azure-svgrepo-com.png" alt="Azure" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="aws" style="--c:#ff9900;"><div class="logo-fallback" style="display:none">A</div><img src="assets/images/aws-svgrepo-com.png" alt="AWS" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="totvs" style="--c:#e91e63;"><div class="logo-fallback" style="display:none">T</div><img src="assets/images/Protheus-by-TOTVS.png" alt="TOTVS Protheus" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="glpi" style="--c:#f39c12;"><div class="logo-fallback" style="display:none">G</div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP1jWhBa6ber0zYm8aWqAA6VcTGgAVKNvQVA_Lg8HaGt1iqrHV4ma5PNbF&s=10" alt="GLPI" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="fortigate" style="--c:#0078d4;"><div class="logo-fallback" style="display:none">F</div><img src="https://cdn.simpleicons.org/fortinet" alt="FortiGate" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="pfsense" style="--c:#2ecc71;"><div class="logo-fallback" style="display:none">P</div><img src="assets/images/pfsense.png" alt="pfSense" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="sql" style="--c:#cc2927;"><div class="logo-fallback" style="display:none">S</div><img src="assets/images/sql-database-sql-azure-svgrepo-com.png" alt="SQL Server" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="postgres" style="--c:#336791;"><div class="logo-fallback" style="display:none">P</div><img src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="python" style="--c:#3776ab;"><div class="logo-fallback" style="display:none">P</div><img src="https://cdn.simpleicons.org/python" alt="Python" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="nodejs" style="--c:#339933;"><div class="logo-fallback" style="display:none">N</div><img src="https://cdn.simpleicons.org/node.js" alt="Node.js" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+            <div class="logo-item" data-tech="react" style="--c:#61dafb;"><div class="logo-fallback" style="display:none">R</div><img src="https://cdn.simpleicons.org/react" alt="React Native" class="company-logo" onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';" loading="eager"></div>
+        </div>
+    </section>
+
+    <!-- PROJETOS -->
     <section id="projects" class="py-24 px-6 lg:px-24 max-w-7xl mx-auto border-b border-white/5">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="projects.badge">Inovação Prática</span>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="projects.title">Projetos em Destaque</h2>
-            <p class="text-xs text-white/50 font-light" data-i18n="projects.description">Produtos pessoais, automações e soluções de infraestrutura desenvolvidos para resolver problemas reais, além de projetos acadêmicos selecionados.</p>
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span><span data-i18n="projects.badge">Inovação Prática</span></span>
+            <h2 class="section-title" data-i18n="projects.title">Projetos em Destaque</h2>
+            <p class="section-desc" data-i18n="projects.description">Produtos pessoais, automações e soluções de infraestrutura.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <!-- PROJETO 5: SALDOPLAN -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between space-y-6 hover:border-white/20 transition-all duration-300 relative overflow-hidden">
-                <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-white/[0.03] blur-2xl pointer-events-none"></div>
-                <div class="space-y-4 relative">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/10 border border-white/15 text-[10px] font-mono-tech tracking-wider text-white/80 rounded" data-i18n="projects.card5.tag">PWA & FINTECH PESSOAL</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card5.date">SET/2026</span>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-mono-tech uppercase tracking-[0.2em] text-white/35">Projeto pessoal em destaque</span>
-                        <h3 class="text-2xl font-bold text-white tracking-tight mt-1" data-i18n="projects.card5.title">SaldoPlan — Controle Financeiro & Simulação de Folha</h3>
-                    </div>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card5.text">
-                        PWA criada para centralizar salário, gastos, reservas e planejamento mensal em uma única experiência. O sistema trabalha com ciclos financeiros, lançamentos, valores guardados e uma simulação de folha com horas extras, adicional noturno, DSR e descontos. Também oferece funcionamento offline, exportação/importação de dados e backup opcional em nuvem, transformando uma necessidade pessoal em um produto utilizável no dia a dia.
-                    </p>
+            <!-- SaldoPlan -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-1">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card5.tag">PWA & FINTECH</span>
+                    <span class="project-date" data-i18n="projects.card5.date">SET/2026</span>
                 </div>
-                <div class="space-y-4 relative">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">PWA</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">JavaScript</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Service Worker</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Offline First</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Google Drive OAuth</span>
-                    </div>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="https://saldoplan.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-white hover:text-white/80 transition-colors">
-                            <span data-i18n="projects.live">Acessar aplicação</span> <span aria-hidden="true">↗</span>
-                        </a>
-                        <a href="https://github.com/JoeyRickson/PWA_CAIXA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-white/60 hover:text-white transition-colors">
-                            <span data-i18n="projects.repo">Repositório GitHub</span> <span aria-hidden="true">↗</span>
-                        </a>
-                    </div>
+                <h3 class="project-title-card" data-i18n="projects.card5.title">SaldoPlan — Controle Financeiro</h3>
+                <p class="project-text" data-i18n="projects.card5.text">PWA para centralizar salário, gastos, reservas e planejamento mensal com simulação de folha e backup em nuvem.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">PWA</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">Service Worker</span>
+                    <span class="tech-pill">Offline First</span>
+                    <span class="tech-pill">Google Drive OAuth</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://saldoplan.vercel.app/" target="_blank" class="project-link" data-i18n="projects.live">Acessar aplicação ↗</a>
+                    <a href="https://github.com/JoeyRickson/PWA_CAIXA" target="_blank" class="project-link" data-i18n="projects.repo">GitHub ↗</a>
                 </div>
             </div>
 
-            <!-- PROJETO 6: DOSE CERTA -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between space-y-6 hover:border-white/20 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/10 border border-white/15 text-[10px] font-mono-tech tracking-wider text-white/80 rounded" data-i18n="projects.card6.tag">MOBILE & PRODUTO PESSOAL</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card6.date">SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card6.title">Dose Certa — Controle de Medicamentos</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card6.text">
-                        Aplicativo mobile desenvolvido em React Native com Expo para organizar o uso diário de medicamentos. Possui histórico e calendário, horário configurável, observações, persistência local com SQLite, temas, notificações e lembretes com suporte a alarme no Android. O projeto também passou por ciclo real de build e distribuição via EAS.
-                    </p>
+            <!-- Dose Certa -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-2">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card6.tag">MOBILE & PESSOAL</span>
+                    <span class="project-date" data-i18n="projects.card6.date">SET/2026</span>
                 </div>
-                <div class="space-y-4">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">React Native</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Expo</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">SQLite</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">EAS Build</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Android Notifications</span>
-                    </div>
-                    <a href="https://github.com/JoeyRickson/dose-certa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white transition-colors">
-                        <span data-i18n="projects.repo">Repositório GitHub</span> <span aria-hidden="true">↗</span>
-                    </a>
+                <h3 class="project-title-card" data-i18n="projects.card6.title">Dose Certa — Medicamentos</h3>
+                <p class="project-text" data-i18n="projects.card6.text">App React Native com Expo para controle de medicamentos, SQLite, notificações e build via EAS.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">React Native</span>
+                    <span class="tech-pill">Expo</span>
+                    <span class="tech-pill">SQLite</span>
+                    <span class="tech-pill">EAS Build</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/JoeyRickson/dose-certa" target="_blank" class="project-link" data-i18n="projects.repo">GitHub ↗</a>
                 </div>
             </div>
 
-            <!-- PROJETO 10: SQL GENERATOR PROTHEUS -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between space-y-6 hover:border-white/20 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/10 border border-white/15 text-[10px] font-mono-tech tracking-wider text-white/80 rounded" data-i18n="projects.card10.tag">DEV TOOL & ERP</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card10.date">SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card10.title">SQL Generator Protheus</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card10.text">
-                        Ferramenta criada para acelerar a montagem de consultas SQL voltadas ao ecossistema TOTVS Protheus, reduzindo trabalho repetitivo durante análises, suporte e investigação de dados. O projeto transforma conhecimento operacional de ERP e banco de dados em uma ferramenta reutilizável e disponível publicamente no GitHub.
-                    </p>
+            <!-- SQL Generator -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-3">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card10.tag">DEV TOOL & ERP</span>
+                    <span class="project-date" data-i18n="projects.card10.date">SEP/2026</span>
                 </div>
-                <div class="space-y-4">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">SQL</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">TOTVS Protheus</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Developer Tool</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/50">Open Source</span>
-                    </div>
-                    <a href="https://github.com/JoeyRickson/sql-generator-protheus" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white transition-colors">
-                        <span data-i18n="projects.repo">Repositório GitHub</span> <span aria-hidden="true">↗</span>
-                    </a>
+                <h3 class="project-title-card" data-i18n="projects.card10.title">SQL Generator Protheus</h3>
+                <p class="project-text" data-i18n="projects.card10.text">Ferramenta para acelerar consultas SQL no ecossistema TOTVS Protheus.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">SQL</span>
+                    <span class="tech-pill">TOTVS Protheus</span>
+                    <span class="tech-pill">Open Source</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/JoeyRickson/sql-generator-protheus" target="_blank" class="project-link" data-i18n="projects.repo">GitHub ↗</a>
                 </div>
             </div>
 
-            <!-- PROJETO 7: GCP FILE SERVER -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card7.tag">CLOUD, VPN & INFRAESTRUTURA</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card7.date">AGO–SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card7.title">File Server em GCP + VPN Site-to-Site</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card7.text">
-                        Implantação de um File Server Windows em Google Cloud para uso interno, integrado à rede local por túnel VPN site-to-site com FortiGate. O projeto envolveu VPC, roteamento, segmentação por VLAN, acesso SMB, estrutura de compartilhamentos setoriais, scripts de mapeamento e validações de conectividade entre a fábrica e a nuvem. Informações sensíveis de rede foram omitidas por segurança.
-                    </p>
+            <!-- File Server GCP -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-4">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card7.tag">CLOUD & VPN</span>
+                    <span class="project-date" data-i18n="projects.card7.date">AGO–SET/2026</span>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Google Cloud</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Windows Server</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">FortiGate</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">IPsec VPN</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">SMB</span>
+                <h3 class="project-title-card" data-i18n="projects.card7.title">File Server GCP + VPN</h3>
+                <p class="project-text" data-i18n="projects.card7.text">File Server Windows em GCP com túnel site-to-site FortiGate, VPC e SMB.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Google Cloud</span>
+                    <span class="tech-pill">Windows Server</span>
+                    <span class="tech-pill">FortiGate</span>
+                    <span class="tech-pill">IPsec VPN</span>
                 </div>
             </div>
 
-            <!-- PROJETO 8: CHECKLIST PREVENTIVA -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card8.tag">AUTOMAÇÃO & APLICAÇÃO INTERNA</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card8.date">SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card8.title">Checklist Preventiva — Aplicação Interna</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card8.text">
-                        Evolução e publicação de uma aplicação interna para execução e registro de checklists de manutenção preventiva. Foram trabalhados autenticação, API REST, controle de versão, assinatura em PDF, identidade visual, inatividade de sessão e operação como serviço via tarefas agendadas, além de procedimentos de backup, atualização e rollback.
-                    </p>
+            <!-- Checklist -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-5">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card8.tag">AUTOMAÇÃO</span>
+                    <span class="project-date" data-i18n="projects.card8.date">SET/2026</span>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Node.js</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Express</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">REST API</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Windows Server</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">PDF</span>
+                <h3 class="project-title-card" data-i18n="projects.card8.title">Checklist Preventiva</h3>
+                <p class="project-text" data-i18n="projects.card8.text">Aplicação interna Node.js/Express com API REST, autenticação e assinatura PDF.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">Express</span>
+                    <span class="tech-pill">REST API</span>
+                    <span class="tech-pill">Windows Server</span>
                 </div>
             </div>
 
-            <!-- PROJETO 9: GLPI PLUGIN -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card9.tag">ITSM & CUSTOMIZAÇÃO</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card9.date">SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card9.title">Plugin GLPI — Contexto do Solicitante</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card9.text">
-                        Desenvolvimento de plugin próprio para GLPI 10, adicionando ao atendimento um painel contextual com informações úteis do solicitante, como localização, grupo e cargo. A customização melhora a triagem dos chamados e reduz consultas manuais durante o suporte sem alterar o núcleo da plataforma.
-                    </p>
+            <!-- Plugin GLPI -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-6">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card9.tag">ITSM & CUSTOM</span>
+                    <span class="project-date" data-i18n="projects.card9.date">SET/2026</span>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">GLPI 10</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">PHP</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">MariaDB</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">ITSM</span>
+                <h3 class="project-title-card" data-i18n="projects.card9.title">Plugin GLPI — Contexto</h3>
+                <p class="project-text" data-i18n="projects.card9.text">Plugin GLPI 10 com painel contextual do solicitante para melhor triagem de chamados.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">GLPI 10</span>
+                    <span class="tech-pill">PHP</span>
+                    <span class="tech-pill">MariaDB</span>
                 </div>
             </div>
 
-            <!-- PROJETO 11: FORTIGATE / CONECTIVIDADE -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card11.tag">NETWORKING & SECURITY</span>
-                        <span class="text-xs text-white/40 font-mono-tech whitespace-nowrap" data-i18n="projects.card11.date">SET/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card11.title">FortiGate — Conectividade, SD-WAN & VPNs</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card11.text">
-                        Administração e evolução de conectividade corporativa em ambiente FortiGate com múltiplos links de Internet. O trabalho inclui configuração e troubleshooting de SD-WAN, VLANs, políticas de firewall, criação e ajustes de VPNs, roteamento, acesso administrativo externo, testes de portas e URLs, análise de tráfego e integração de redes locais com serviços em cloud. Endereços, regras e demais informações sensíveis foram omitidos por segurança.
-                    </p>
+            <!-- FortiGate -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-7">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card11.tag">NETWORKING</span>
+                    <span class="project-date" data-i18n="projects.card11.date">SEP/2026</span>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">FortiGate</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">SD-WAN</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">IPsec VPN</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">VLAN</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Firewall Policies</span>
-                    <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Troubleshooting</span>
+                <h3 class="project-title-card" data-i18n="projects.card11.title">FortiGate — SD-WAN & VPNs</h3>
+                <p class="project-text" data-i18n="projects.card11.text">Conectividade corporativa com múltiplos links, SD-WAN, VLANs e políticas de firewall.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">FortiGate</span>
+                    <span class="tech-pill">SD-WAN</span>
+                    <span class="tech-pill">IPsec VPN</span>
+                    <span class="tech-pill">VLAN</span>
                 </div>
             </div>
 
-            <!-- PROJETO 1: SAMAUMA (Sem imagem) -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card1.tag">BIG DATA & INTEGRAÇÃO</span>
-                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card1.date">MAI/2026</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card1.title">SAMAUMA — Inteligência de Crédito Comercial</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card1.text">
-                        Apresentado na Mostra de Projetos Estácio Amazonas, o SAMAUMA é uma plataforma inovadora voltada para a cadeia de suprimentos da região Norte. Ele resolve a assimetria de crédito ao integrar motores de regras Big Data tradicionais com variáveis não-estruturadas locais exclusivas (como o nível de seca severa de rios e gargalos de logística fluvial). O diferencial está no isolamento de risco: distinguir se um atraso do fornecedor é calote financeiro ou impacto sazonal geográfico, promovendo inclusão financeira justa.
-                    </p>
-                    <div class="pt-2">
-                        <h4 class="text-[11px] font-mono-tech text-white/40 uppercase tracking-wider mb-1">Equipe de Desenvolvimento:</h4>
-                        <p class="text-[11px] text-white/50 font-light">
-                            <strong>PoC Original:</strong> Naomy Souza, Carolina Maranhão, David Vieira, Isaias Leite, João Victor <br/>
-                            <strong>Mobile App UI:</strong> Joey Rickson & Marcos Ramos | <strong>Orientação:</strong> Prof. Fábio Brasil & Coord. Gilmara Maquiné
-                        </p>
-                    </div>
+            <!-- SAMAUMA -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-8">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card1.tag">BIG DATA</span>
+                    <span class="project-date" data-i18n="projects.card1.date">MAI/2026</span>
                 </div>
-                <div class="space-y-4">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Big Data Engine</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Rules Motor</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Mobile UI</span>
-                    </div>
+                <h3 class="project-title-card" data-i18n="projects.card1.title">SAMAUMA — Crédito Comercial</h3>
+                <p class="project-text" data-i18n="projects.card1.text">Plataforma para cadeia de suprimentos da região Norte com Big Data e variáveis locais.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Big Data</span>
+                    <span class="tech-pill">Rules Motor</span>
+                    <span class="tech-pill">Mobile UI</span>
                 </div>
             </div>
 
-            <!-- PROJETO 2: CLIENTE SEGURO -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card2.tag">MOBILE & CORPORATIVO</span>
-                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card2.date">NOV/2024</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <img src="assets/images/LOGO_CLIENTE_SEGURO.png" alt="Logo Cliente Seguro" class="h-6 object-contain zoomable-img" onclick="openZoom(this.src)">
-                        <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card2.title">Cliente Seguro</h3>
-                    </div>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card2.text">
-                        Desenvolvida para a empresa parceira <strong>Hise Plast</strong> na disciplina de Programação para Dispositivos Móveis (orientada pelo prof. Paulo Seixas), a aplicação otimiza a gestão de crédito corporativo e o controle de riscos. Permite a consulta rápida via CNPJ, extração e análise automatizada de pagamentos de boletos, histórico de protestos e cálculo direto do risco de inadimplência, operando em total conformidade técnica com a LGPD.
-                    </p>
+            <!-- Cliente Seguro -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-9">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card2.tag">MOBILE & CORP</span>
+                    <span class="project-date" data-i18n="projects.card2.date">NOV/2024</span>
                 </div>
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="assets/images/FORMULARIO_CNPJ.png" alt="Formulário de Consulta - Cliente Seguro" class="w-full h-32 object-cover rounded-xl border border-white/10 zoomable-img" onclick="openZoom(this.src)">
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">React Native</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Web Platform</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">LGPD Compliance</span>
-                    </div>
+                <div class="flex items-center gap-3 mb-3">
+                    <img src="assets/images/LOGO_CLIENTE_SEGURO.png" alt="Logo Cliente Seguro" class="h-6 object-contain zoomable-img" onclick="openZoom(this.src)" loading="lazy">
+                    <h3 class="project-title-card" data-i18n="projects.card2.title">Cliente Seguro</h3>
+                </div>
+                <p class="project-text" data-i18n="projects.card2.text">App para Hise Plast com consulta CNPJ, análise de boletos e conformidade LGPD.</p>
+                <div class="project-images">
+                    <img src="assets/images/FORMULARIO_CNPJ.png" alt="Formulário CNPJ" class="project-image zoomable-img" onclick="openZoom(this.src)" loading="lazy">
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">React Native</span>
+                    <span class="tech-pill">Web Platform</span>
+                    <span class="tech-pill">LGPD</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" data-i18n="projects.repo">Repositório ↗</a>
                 </div>
             </div>
 
-            <!-- PROJETO 3: EAAM -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card3.tag">DESKTOP SOFTWARE (POO)</span>
-                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card3.date">FEV–MAI/2024</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card3.title">EAAM — Escola Abastece Amazonas</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card3.text">
-                        Sistema desktop de alta robustez desenvolvido sob a ótica da Programação Orientada a Objetos em Java, sob a orientação da profª. Isandra Augusta. A solução foi projetada de ponta a ponta para resolver gargalos reais de gestão de estoque em instituições públicas locais, otimizando o fluxo de cadastro, entrada, saída e controle de insumos alimentícios destinados a refeições escolares de forma limpa, auditável e segura.
-                    </p>
+            <!-- EAAM -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-10">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card3.tag">DESKTOP POO</span>
+                    <span class="project-date" data-i18n="projects.card3.date">FEV–MAI/2024</span>
                 </div>
-                <div class="space-y-4">
-                    <img src="assets/images/PAINEL_CONTRO_E_RELATORIO.png" alt="Painel do EAAM Java Desktop" class="w-full h-40 object-cover rounded-xl border border-white/10 filter brightness-95 zoomable-img" onclick="openZoom(this.src)">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Java SE</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">POO Avançado</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Estoque Local</span>
-                    </div>
+                <h3 class="project-title-card" data-i18n="projects.card3.title">EAAM — Escola Abastece</h3>
+                <p class="project-text" data-i18n="projects.card3.text">Sistema desktop Java POO para gestão de estoque de instituições públicas.</p>
+                <div class="project-images">
+                    <img src="assets/images/PAINEL_CONTRO_E_RELATORIO.png" alt="Painel EAAM" class="project-image zoomable-img" onclick="openZoom(this.src)" loading="lazy">
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">Java SE</span>
+                    <span class="tech-pill">POO Avançado</span>
+                    <span class="tech-pill">Estoque Local</span>
                 </div>
             </div>
 
-            <!-- PROJETO 4: KIT PLANTINHA IOT -->
-            <div class="glass-effect p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col justify-between space-y-6 hover:border-white/10 transition-all duration-300">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <span class="px-2.5 py-1 bg-white/5 border border-white/10 text-[10px] font-mono-tech tracking-wider text-white/70 rounded" data-i18n="projects.card4.tag">EXTENSÃO & EMBARCADOS</span>
-                        <span class="text-xs text-white/40 font-mono-tech" data-i18n="projects.card4.date">Projeto de Extensão</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white tracking-tight" data-i18n="projects.card4.title">Kit Plantinha IoT — Monitoramento Residencial</h3>
-                    <p class="text-xs text-white/60 leading-relaxed text-justify font-light" data-i18n="projects.card4.text">
-                        Iniciativa extensionista focada em aproximar competências complexas de engenharia eletrônica à resolução de demandas da comunidade local de Manaus. Desenhado especificamente para mitigar a barreira de familiaridade digital da cliente (Sra. Raimunda da Silva), a arquitetura combinou microcontroladores de baixo custo e telemetria de sensores.
-                    </p>
-                    <div class="pt-2">
-                        <h4 class="text-[11px] font-mono-tech text-white/40 uppercase tracking-wider mb-1">Membros do Projeto:</h4>
-                        <p class="text-[11px] text-white/50 font-light">
-                            Anderson Vieira, Caio de Souza, Joey Rickson Oliveira, Luiz Dae Lee e Timóteo Bentes.
-                        </p>
-                    </div>
+            <!-- Kit Plantinha IoT -->
+            <div class="project-card p-6 md:p-8 rounded-2xl reveal reveal-delay-11">
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projects.card4.tag">IOT & EMBARCADO</span>
+                    <span class="project-date" data-i18n="projects.card4.date">Extensão</span>
                 </div>
-                <div class="space-y-4">
-                    <img src="assets/images/KIT_IOT_PLANTINHA.png" alt="Apresentação da Equipe - Kit Plantinha IoT" class="w-full h-40 object-cover rounded-xl border border-white/10 zoomable-img" onclick="openZoom(this.src)">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">IoT Hardware</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Sistemas Embarcados</span>
-                        <span class="text-[10px] font-mono-tech px-2 py-0.5 bg-white/5 rounded text-white/40">Cloud Computing</span>
-                    </div>
+                <h3 class="project-title-card" data-i18n="projects.card4.title">Kit Plantinha IoT</h3>
+                <p class="project-text" data-i18n="projects.card4.text">Monitoramento residencial com microcontroladores e telemetria de sensores.</p>
+                <div class="project-images">
+                    <img src="assets/images/KIT_IOT_PLANTINHA.png" alt="Kit Plantinha IoT" class="project-image zoomable-img" onclick="openZoom(this.src)" loading="lazy">
+                </div>
+                <div class="project-tech">
+                    <span class="tech-pill">IoT Hardware</span>
+                    <span class="tech-pill">Sistemas Embarcados</span>
+                    <span class="tech-pill">Cloud Computing</span>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- EXPERIÊNCIA E PARCERIAS ESTRATÉGICAS -->
+    <!-- EXPERIÊNCIA -->
     <section id="experience" class="py-24 px-6 lg:px-24 max-w-5xl mx-auto border-b border-white/5">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="experience.badge">Histórico</span>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="experience.title">Experiência & Alianças</h2>
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span><span data-i18n="experience.badge">Histórico</span></span>
+            <h2 class="section-title" data-i18n="experience.title">Experiência & Alianças</h2>
         </div>
 
         <div class="space-y-10">
-            <!-- PARCERIA DESTAQUE: AMADEV -->
-            <div class="p-8 rounded-2xl relative overflow-hidden bg-gradient-to-r from-white/[0.03] to-transparent border border-white/10 shadow-2xl">
+            <!-- Amadev -->
+            <div class="p-8 rounded-2xl relative overflow-hidden bg-gradient-to-r from-white/[0.03] to-transparent border border-white/10 shadow-2xl reveal reveal-delay-1">
                 <div class="absolute top-0 right-0 px-3 py-1 bg-white/10 text-[9px] font-mono-tech text-white/80 rounded-bl tracking-widest uppercase" data-i18n="experience.partnerBadge">Parceria Estratégica</div>
                 
                 <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-white/5 pb-4 mb-4 gap-4">
@@ -511,24 +622,23 @@
                         </h3>
                         <p class="text-xs text-white/60 mt-0.5" data-i18n="experience.amadev.role">Engenharia de Infraestrutura, Servidores & Banco de Dados Core</p>
                     </div>
-                    <!-- Imagem Logo Amadev -->
                     <img src="assets/images/amadev.jpg" alt="Logo Amadev" class="h-10 object-contain rounded border border-white/10 zoomable-img" onclick="openZoom(this.src)">
                 </div>
                 
                 <p class="text-xs text-white/70 font-light leading-relaxed mb-4 text-justify" data-i18n="experience.amadev.text">
-                    A <strong>Amadev</strong> (empresa parceira capitaneada por Timóteo Bentes) é uma software house focada em criar soluções digitais inovadoras, unindo tecnologia, design e estratégia. Desenvolvemos produtos modernos, funcionais e centrados no usuário, sempre com compromisso, qualidade e proximidade com o cliente. Nossa missão é transformar ideias em experiências digitais inteligentes, escaláveis e de alto impacto. Vem com a gente trilhar essa jornada 🚀
+                    A <strong>Amadev</strong> (empresa parceira capitaneada por Timóteo Bentes) é uma software house focada em criar soluções digitais inovadoras, unindo tecnologia, design e estratégia.
                 </p>
                 
                 <div class="bg-white/5 rounded-xl p-4 border border-white/5">
                     <h4 class="text-[10px] font-mono-tech text-white/40 uppercase tracking-wider mb-2" data-i18n="experience.amadev.sectionTitle">Atuação & Espírito de Equipe:</h4>
                     <p class="text-xs text-white/50 leading-relaxed font-light text-justify" data-i18n="experience.amadev.sectionText">
-                        Somando forças através de um sólido espírito de colaboração onde cada especialista potencializa o que faz de melhor. Focado na espinha dorsal técnica, meu papel foca em blindar e otimizar o ecossistema com <strong>gestão de servidores e administração de banco de dados robustos</strong>, garantindo alta performance, estabilidade e crescimento conjunto para que toda ideia seja impulsionada sem gargalos operacionais.
+                        Somando forças através de um sólido espírito de colaboração. Focado na espinha dorsal técnica com gestão de servidores e administração de banco de dados robustos.
                     </p>
                 </div>
             </div>
 
             <!-- Instituto Kodigos -->
-            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden">
+            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden reveal reveal-delay-2">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start border-b border-white/5 pb-4 mb-5 gap-2">
                     <div>
                         <h3 class="text-lg font-bold text-white tracking-tight">Instituto Kodigos de Tecnologia</h3>
@@ -537,37 +647,37 @@
                 </div>
 
                 <p class="text-xs text-white/50 leading-relaxed font-light mb-5" data-i18n="experience.kodigos.summary">
-                    Atuação multidisciplinar em infraestrutura, redes, segurança, sistemas corporativos, cloud, banco de dados e desenvolvimento de soluções internas, apoiando a continuidade e evolução do ambiente de TI.
+                    Atuação multidisciplinar em infraestrutura, redes, segurança, sistemas corporativos, cloud, banco de dados e desenvolvimento de soluções internas.
                 </p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div class="bg-white/[0.03] border border-white/5 rounded-xl p-4">
                         <h4 class="text-[10px] font-mono-tech uppercase tracking-wider text-white/45 mb-3" data-i18n="experience.kodigos.sectionInfra">Infra & Segurança</h4>
                         <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item1">Administração de FortiGate, FortiClient, FortiSwitch e HPE Aruba, com criação, configuração e testes de VPNs IPsec/SSL, VLANs, SD-WAN, NAT, políticas de firewall, roteamento e segmentação de rede.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item2">Configuração e validação de acessos internos e externos, portas, URLs, serviços publicados e conectividade entre redes, utilizando testes TCP, curl, Test-NetConnection, ping, traceroute, sniffer e análise de tráfego.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item3">Administração de ambientes GCP, Windows Server e Linux, incluindo File Server, compartilhamentos, serviços internos, tarefas agendadas e integração entre infraestrutura local e cloud.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item4">Suporte a Wi-Fi corporativo, impressoras, impressoras térmicas, coletores e infraestrutura de CFTV, incluindo câmeras IP, NVRs e troubleshooting de comunicação.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item1">FortiGate, FortiClient, FortiSwitch, HPE Aruba, VPNs IPsec/SSL, VLANs, SD-WAN, NAT.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item2">Acessos, portas, URLs, serviços publicados, testes TCP, curl, traceroute.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item3">GCP, Windows Server, Linux, File Server, tarefas agendadas.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item4">Wi-Fi corporativo, impressoras, CFTV, câmeras IP, NVRs.</span></li>
                         </ul>
                     </div>
 
                     <div class="bg-white/[0.03] border border-white/5 rounded-xl p-4">
                         <h4 class="text-[10px] font-mono-tech uppercase tracking-wider text-white/45 mb-3" data-i18n="experience.kodigos.sectionSystems">Sistemas & Dados</h4>
                         <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item5">Sustentação e troubleshooting do TOTVS Protheus, integrações, acessos, inconsistências e ambientes em cloud.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item6">Atuação com SQL Server e MariaDB, realizando consultas, validações, auditorias e análise de dados relacionados ao ERP e sistemas internos.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item7">Monitoramento e troubleshooting com Zabbix e Grafana, além de administração e customização do GLPI.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item8">Desenvolvimento e manutenção de ferramentas internas com Python, Node.js, Express, APIs REST, PowerShell e plugins para GLPI.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item5">TOTVS Protheus, integrações, acessos, inconsistências e cloud.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item6">SQL Server e MariaDB, consultas, validações e auditorias.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item7">Zabbix e Grafana, GLPI administração e customização.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item8">Python, Node.js, Express, APIs REST, PowerShell, plugins GLPI.</span></li>
                         </ul>
                     </div>
 
                     <div class="bg-white/[0.03] border border-white/5 rounded-xl p-4">
                         <h4 class="text-[10px] font-mono-tech uppercase tracking-wider text-white/45 mb-3" data-i18n="experience.kodigos.sectionOps">Operação & Governança</h4>
                         <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item9">Troubleshooting de rede, VPN, firewall, servidores, bancos de dados, aplicações, impressão, videomonitoramento e dispositivos de rede.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item10">Interface técnica com fornecedores, consultorias e equipes externas, acompanhando incidentes, implantações e mudanças em infraestrutura, conectividade, cloud e sistemas.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item11">Participação em auditorias internas e externas, representando o setor de TI no fornecimento de evidências, documentação e validações de controles e processos tecnológicos.</span></li>
-                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item12">Elaboração de documentação técnica, procedimentos, backups, planos de rollback e registros de mudanças para apoiar operação, continuidade e rastreabilidade.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item9">Troubleshooting de rede, VPN, firewall, servidores, bancos de dados.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item10">Interface técnica com fornecedores, incidentes, implantações e mudanças.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item11">Auditorias internas e externas, evidências e documentação.</span></li>
+                            <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.kodigos.item12">Documentação técnica, backups, planos de rollback e registros.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -576,7 +686,7 @@
             </div>
 
             <!-- TAM Service -->
-            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden">
+            <div class="glass-effect p-8 rounded-2xl relative overflow-hidden reveal reveal-delay-3">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start border-b border-white/5 pb-4 mb-4 gap-2">
                     <div>
                         <h3 class="text-lg font-bold text-white tracking-tight">TAM Service (TOTVS)</h3>
@@ -584,96 +694,133 @@
                     </div>
                 </div>
                 <ul class="space-y-2.5 text-xs text-white/50 font-light leading-relaxed">
-                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item1">Atuação em canal homologado TOTVS focado em suporte sistêmico e infraestrutura.</span></li>
-                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item2">Administração de segurança perimetral via firewall FortiGate e gerenciamento de ativos de rede.</span></li>
-                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item3">Controle de inventário, ativos lógicos de TI e interface técnica com fornecedores globais.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item1">Canal homologado TOTVS focado em suporte sistêmico e infraestrutura.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item2">Segurança perimetral via FortiGate e gerenciamento de ativos de rede.</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span data-i18n="experience.tam.item3">Inventário, ativos lógicos de TI e interface técnica com fornecedores globais.</span></li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- SEÇÃO CONTATO -->
+    <!-- CONTATO -->
     <section id="contact" class="py-24 px-6 lg:px-24 max-w-6xl mx-auto border-b border-white/5">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span class="text-xs font-mono-tech uppercase text-white/40 tracking-widest" data-i18n="contact.badge">Conexões</span>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight" data-i18n="contact.title">Entrar em Contato</h2>
+        <div class="text-center max-w-3xl mx-auto mb-16 reveal reveal-delay-1">
+            <span class="section-badge"><span class="section-badge-dot"></span><span data-i18n="contact.badge">Conexões</span></span>
+            <h2 class="section-title" data-i18n="contact.title">Entrar em Contato</h2>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a href="https://wa.me/5592984594999" target="_blank" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
-                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
-                    <span class="font-mono-tech text-sm">WA</span>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="space-y-6 reveal reveal-delay-2">
+                <div class="contact-card">
+                    <div class="contact-icon">WA</div>
+                    <div class="contact-info">
+                        <h3 data-i18n="contact.whatsapp">WhatsApp</h3>
+                        <p>+55 (92) 98459-4999</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.whatsapp">WhatsApp</h3>
-                    <p class="text-sm font-medium text-white/80 mt-0.5">+55 (92) 98459-4999</p>
+                <div class="contact-card">
+                    <div class="contact-icon">@</div>
+                    <div class="contact-info">
+                        <h3 data-i18n="contact.email">E-mail</h3>
+                        <p>joeyoliveira8@gmail.com</p>
+                    </div>
                 </div>
-            </a>
+                <div class="contact-card">
+                    <div class="contact-icon">LN</div>
+                    <div class="contact-info">
+                        <h3 data-i18n="contact.linkedin">LinkedIn</h3>
+                        <p>joeyrickgoliveira</p>
+                    </div>
+                </div>
+            </div>
 
-            <a href="mailto:joeyoliveira8@gmail.com" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
-                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
-                    <span class="font-mono-tech text-sm">@</span>
-                </div>
-                <div>
-                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.email">E-mail</h3>
-                    <p class="text-sm font-medium text-white/80 mt-0.5 truncate max-w-[180px]">joeyoliveira8@gmail.com</p>
-                </div>
-            </a>
-
-            <a href="https://linkedin.com/in/joeyrickgoliveira" target="_blank" class="glass-effect glass-glow p-6 rounded-2xl flex items-center space-x-4 group">
-                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-hover:text-white">
-                    <span class="font-mono-tech text-sm">LN</span>
-                </div>
-                <div>
-                    <h3 class="text-xs text-white/40 font-mono-tech uppercase" data-i18n="contact.linkedin">LinkedIn</h3>
-                    <p class="text-sm font-medium text-white/80 mt-0.5">joeyrickgoliveira</p>
-                </div>
-            </a>
+            <div class="reveal reveal-delay-3">
+                <form id="contactForm" class="glass-effect p-8 rounded-2xl space-y-4">
+                    <div class="form-group">
+                        <label class="form-label" for="contactName">Nome</label>
+                        <input type="text" id="contactName" required class="form-input" placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contactEmail">E-mail</label>
+                        <input type="email" id="contactEmail" required class="form-input" placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contactMessage">Mensagem</label>
+                        <textarea id="contactMessage" required rows="4" class="form-input" placeholder="Como posso ajudar?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" data-i18n="contact.send">Enviar Mensagem</button>
+                </form>
+                <p id="contactSuccess" class="text-center text-xs text-green-400 mt-4 hidden" data-i18n="contact.sent">Mensagem enviada com sucesso!</p>
+            </div>
         </div>
     </section>
 
-    <!-- MODAL DE ZOOM PARA AS IMAGENS -->
+    <!-- MODAL DE ZOOM -->
     <div id="imageModal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center opacity-0 pointer-events-none" onclick="closeZoom()">
         <button class="absolute top-6 right-6 text-white/60 hover:text-white text-sm font-mono-tech bg-white/5 border border-white/10 px-4 py-2 rounded-lg">FECHAR ×</button>
         <img id="modalTargetImg" src="" alt="Zoomed View" class="max-w-[90vw] max-h-[85vh] object-contain rounded-lg border border-white/10 shadow-2xl transition-transform duration-300 scale-95">
     </div>
 
     <!-- FOOTER -->
-    <footer class="py-12 px-6 text-center border-t border-white/5 flex flex-col space-y-2">
-        <p class="text-[10px] text-white/30 font-mono-tech tracking-wider" data-i18n="footer.text">DESIGNED & DEVELOPED BY JOEY OLIVEIRA</p>
+    <footer class="py-12 px-6 border-t border-white/5">
+        <div class="footer-content reveal reveal-delay-1">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="footer-brand">Joey Rickson</span>
+                <span class="footer-divider"></span>
+                <span class="footer-text">2026 • Portfolio</span>
+            </div>
+            <p class="footer-text" data-i18n="footer.text">DESIGNED & DEVELOPED BY JOEY OLIVEIRA</p>
+        </div>
     </footer>
 
-    <!-- Scripts de Controle -->
+    <!-- Scripts -->
     <script>
         function openZoom(imageSrc) {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalTargetImg');
-            
             modalImg.src = imageSrc;
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modal.classList.add('opacity-100');
-            
             setTimeout(() => {
                 modalImg.classList.remove('scale-95');
                 modalImg.classList.add('scale-100');
             }, 50);
         }
-
         function closeZoom() {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalTargetImg');
-            
             modalImg.classList.remove('scale-100');
             modalImg.classList.add('scale-95');
-            
             modal.classList.remove('opacity-100');
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeZoom();
         });
     </script>
     <script src="assets/js/script.js"></script>
+    <script>
+        // Service Worker DESABILITADO - estava servindo cache antigo
+        /*
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('SW registrado'))
+                .catch(err => console.log('SW falhou:', err));
+        }
+        */
+
+        // Scroll reveal animation
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

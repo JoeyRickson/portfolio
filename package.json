@@ -1,0 +1,26 @@
+{
+  "name": "joey-rickson-portfolio",
+  "version": "2.0.0",
+  "description": "Portfólio profissional - Joey Rickson Guimarães Oliveira",
+  "main": "index.html",
+  "scripts": {
+    "dev": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --watch",
+    "build": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --minify",
+    "start": "npx serve .",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "portfolio",
+    "infrastructure",
+    "devops",
+    "cloud",
+    "protheus"
+  ],
+  "author": "Joey Rickson Guimarães Oliveira",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.6.2",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^3.4.19"
+  }
+}

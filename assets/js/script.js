@@ -128,7 +128,18 @@ const translations = {
         'contact.whatsapp': 'WhatsApp',
         'contact.email': 'E-mail',
         'contact.linkedin': 'LinkedIn',
-        'footer.text': 'DESIGN E DESENVOLVIMENTO POR JOEY OLIVEIRA'
+        'contact.send': 'Enviar Mensagem',
+        'contact.sent': 'Mensagem enviada com sucesso!',
+        'contact.sending': 'Enviando...',
+        'footer.text': 'DESIGN E DESENVOLVIMENTO POR JOEY OLIVEIRA',
+        'stats.years': '5+',
+        'stats.yearsLabel': 'Anos de TI',
+        'stats.projects': '11+',
+        'stats.projectsLabel': 'Projetos',
+        'stats.cert': '3',
+        'stats.certLabel': 'Idiomas',
+        'stats.cloud': 'GCP',
+        'stats.cloudLabel': 'Cloud Partner'
     },
     es: {
         'meta.title': 'Joey Rickson | Ingeniero de Infraestructura y Software',
@@ -179,6 +190,8 @@ const translations = {
         'projects.badge': 'Innovación Práctica',
         'projects.title': 'Proyectos Destacados',
         'projects.description': 'Productos personales, automatizaciones y soluciones de infraestructura creados para resolver problemas reales, además de proyectos académicos seleccionados.',
+        'projects.live': 'Abrir aplicación',
+        'projects.repo': 'Repositorio GitHub',
         'projects.card5.tag': 'PWA & FINTECH PERSONAL',
         'projects.card5.date': 'SEP/2026',
         'projects.card5.title': 'SaldoPlan — Control Financiero & Simulación de Nómina',
@@ -257,7 +270,18 @@ const translations = {
         'contact.whatsapp': 'WhatsApp',
         'contact.email': 'Correo',
         'contact.linkedin': 'LinkedIn',
-        'footer.text': 'DISEÑADO Y DESARROLLADO POR JOEY OLIVEIRA'
+        'contact.send': 'Enviar Mensaje',
+        'contact.sent': '¡Mensaje enviado con éxito!',
+        'contact.sending': 'Enviando...',
+        'footer.text': 'DISEÑADO Y DESARROLLADO POR JOEY OLIVEIRA',
+        'stats.years': '5+',
+        'stats.yearsLabel': 'Años de TI',
+        'stats.projects': '11+',
+        'stats.projectsLabel': 'Proyectos',
+        'stats.cert': '3',
+        'stats.certLabel': 'Idiomas',
+        'stats.cloud': 'GCP',
+        'stats.cloudLabel': 'Socio Cloud'
     },
     en: {
         'meta.title': 'Joey Rickson | Infrastructure & Software Engineer',
@@ -388,7 +412,18 @@ const translations = {
         'contact.whatsapp': 'WhatsApp',
         'contact.email': 'Email',
         'contact.linkedin': 'LinkedIn',
-        'footer.text': 'DESIGNED & DEVELOPED BY JOEY OLIVEIRA'
+        'contact.send': 'Send Message',
+        'contact.sent': 'Message sent successfully!',
+        'contact.sending': 'Sending...',
+        'footer.text': 'DESIGNED & DEVELOPED BY JOEY OLIVEIRA',
+        'stats.years': '5+',
+        'stats.yearsLabel': 'Years in IT',
+        'stats.projects': '11+',
+        'stats.projectsLabel': 'Projects',
+        'stats.cert': '3',
+        'stats.certLabel': 'Languages',
+        'stats.cloud': 'GCP',
+        'stats.cloudLabel': 'Cloud Partner'
     }
 };
 
@@ -469,23 +504,37 @@ function applyTheme() {
 }
 
 if (titleEl) {
+    let isTransitioning = false;
     setInterval(() => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
         titleEl.style.opacity = 0;
-        titleEl.style.transform = 'translateY(-5px)';
+        titleEl.style.transform = 'translateX(-8px)';
+        titleEl.style.filter = 'blur(4px)';
 
         setTimeout(() => {
             currentIdx = (currentIdx + 1) % titlesByLang[state.lang].length;
             titleEl.textContent = titlesByLang[state.lang][currentIdx];
             titleEl.style.opacity = 1;
-            titleEl.style.transform = 'translateY(0)';
-        }, 300);
-    }, 3000);
+            titleEl.style.transform = 'translateX(0)';
+            titleEl.style.filter = 'blur(0)';
+
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 600);
+        }, 400);
+    }, 3500);
 }
 
+// --- Partículas (com pausa em aba inativa) ---
 const canvas = document.getElementById('particleCanvas');
+let animationId = null;
+let particles = [];
+let isPaused = false;
+
 if (canvas) {
     const ctx = canvas.getContext('2d');
-    let particles = [];
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -507,6 +556,11 @@ if (canvas) {
     }
 
     function animateParticles() {
+        if (isPaused) {
+            animationId = requestAnimationFrame(animateParticles);
+            return;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = state.theme === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(17, 17, 17, 0.16)';
 
@@ -522,10 +576,17 @@ if (canvas) {
             ctx.fill();
         });
 
-        requestAnimationFrame(animateParticles);
+        animationId = requestAnimationFrame(animateParticles);
     }
 
-    animateParticles();
+    animationId = requestAnimationFrame(animateParticles);
+
+    document.addEventListener('visibilitychange', () => {
+        isPaused = document.hidden;
+        if (!isPaused && animationId === null) {
+            animationId = requestAnimationFrame(animateParticles);
+        }
+    });
 }
 
 document.querySelectorAll('.lang-btn').forEach((btn) => {
@@ -553,6 +614,15 @@ if (menuToggle && navLinks) {
             menuToggle.textContent = '☰';
         });
     });
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', (e) => {
+        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.textContent = '☰';
+        }
+    });
 }
 
 const themeToggle = document.getElementById('themeToggle');
@@ -568,5 +638,98 @@ if (themeToggle) {
     });
 }
 
+// --- Formulário de contato ---
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+
+        const subject = encodeURIComponent('Contato via Portfólio - ' + name);
+        const body = encodeURIComponent(
+            'Nome: ' + name + '\n' +
+            'E-mail: ' + email + '\n\n' +
+            'Mensagem:\n' + message
+        );
+
+        window.location.href = `mailto:joeyoliveira8@gmail.com?subject=${subject}&body=${body}`;
+
+        contactForm.reset();
+        contactSuccess.classList.remove('hidden');
+        setTimeout(() => contactSuccess.classList.add('hidden'), 5000);
+    });
+}
+
 applyTheme();
 applyLanguage();
+
+// --- Scroll to Top ---
+const scrollToTop = document.getElementById('scrollToTop');
+if (scrollToTop) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollToTop.classList.add('visible');
+        } else {
+            scrollToTop.classList.remove('visible');
+        }
+    });
+
+    scrollToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// --- Formulário de contato (Formspree) ---
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = getText('contact.sending') || 'Enviando...';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+
+            if (response.ok) {
+                contactForm.reset();
+                contactSuccess.classList.remove('hidden');
+                setTimeout(() => contactSuccess.classList.add('hidden'), 5000);
+            } else {
+                throw new Error('Erro ao enviar');
+            }
+        } catch (err) {
+            // Fallback para mailto se o Formspree falhar
+            const subject = encodeURIComponent('Contato via Portfólio - ' + name);
+            const body = encodeURIComponent(
+                'Nome: ' + name + '\n' +
+                'E-mail: ' + email + '\n\n' +
+                'Mensagem:\n' + message
+            );
+            window.location.href = `mailto:joeyoliveira8@gmail.com?subject=${subject}&body=${body}`;
+            contactForm.reset();
+            contactSuccess.classList.remove('hidden');
+            setTimeout(() => contactSuccess.classList.add('hidden'), 5000);
+        } finally {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}

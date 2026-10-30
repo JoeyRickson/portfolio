@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joeyrickson.com.br/sitemap.xml
+
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /build/
